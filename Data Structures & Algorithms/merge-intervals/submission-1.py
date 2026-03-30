@@ -1,0 +1,18 @@
+from typing import List
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key = lambda item: item[0])
+
+        # Add first element to output to avoid edge cases
+        output = [intervals[0]]
+
+        for start, end in intervals[1:]:
+
+            lastEnd = output[-1][1]
+
+            if start <= lastEnd:
+                output[-1][1] = max(lastEnd, end)
+            else:
+                output.append([start,end])
+        return output
